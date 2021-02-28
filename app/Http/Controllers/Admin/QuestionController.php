@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Models\Quiz;
+use App\Http\Requests\QuestionCreateRequest;
+use Illuminate\Support\Str;
 
 class QuestionController extends Controller
 {
@@ -25,9 +27,10 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($quiz_id) //normalde burası parametresiz geliyor. Biz  parametre ekleyerek url de gelen sorunun id sini yakalayabiliyoruz
+    public function create($id) //normalde burası parametresiz geliyor. Biz  parametre ekleyerek url de gelen sorunun id sini yakalayabiliyoruz
     {
-        return $quiz_id;
+        $quiz = Quiz::find($id);
+        return view('admin.question.create',compact('quiz'));
     }
 
     /**
@@ -36,9 +39,19 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuestionCreateRequest $request,$id)
     {
-        //
+        if($request->hasFile('image')){
+            $fileName = Str::slug($request->question).'.'.$request->image->extension();
+            $fileNameWithUpload = 'uploads/'.$fileName;
+            $request->image->move(public_path('uploads'),$fileName);//bu satır projenin içine kaydedilmesini sağlar. sonrasında bir de db deki sütuna kaydetmek lazım.
+            $request->merge([
+                'image' =>$fileNameWithUpload
+                ]);//bu da db ye kaydediyor.
+        }
+        Quiz::find($id)->questions()->create($request->post());
+
+        return redirect()->route('questions.index',$id)->withSuccess('Soru başarıyla oluşturuldu');
     }
 
     /**
