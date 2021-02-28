@@ -1,28 +1,30 @@
 <x-app-layout>
-    <x-slot name="header">Quiz Oluştur</x-slot>
+    <x-slot name="header">Quiz Güncelle</x-slot>
     <div class="card">
         <div class="card-body">
-            <form method="POST" action=" {{ route('quizzes.store') }}">
+            <form method="POST" action=" {{ route('quizzes.update', $quiz->id) }}">
+                @method('PUT') <!-- edit işleminde methodu put olarak belirtmezsek hata alırız-->
                 @csrf
                 <!--form uygulamalarında bunu yazmak mecburi. güvenlik için -->
                 <div class="form-group">
                     <label>Quiz Başlığı</label>
-                    <input type="text" name="title" class="form-control" value="{{ old('title')}}">
+                    <input type="text" name="title" class="form-control" value="{{ $quiz->title}}">
                 </div>
                 <div class="form-group">
                     <label>Quiz Açıklama</label>
-                    <textarea name="description" class="form-control" rows="4">{{ old('description')}}</textarea>
+                    <textarea name="description" class="form-control" rows="4">{{ $quiz->description}}</textarea>
                 </div>
                 <div class="form-group">
-                    <input id="isFinished" @if(old('finished_at')) checked @endif type="checkbox">
+                    <input id="isFinished" @if($quiz->finished_at) checked @endif type="checkbox">
                     <label>Bitiş Tarihi Olacak mı?</label>
                 </div>
-                <div id="finishedInput" @if(!old('finished_at')) style="display:none" @endif class="form-group">
+                <div id="finishedInput" @if(!$quiz->finished_at) style="display:none" @endif class="form-group">
                     <label>Bitiş Tarihi</label>
-                    <input type="datetime-local" name="finished_at" class="form-control" value="{{ old('finished_at')}}">
+                    <input type="datetime-local" name="finished_at" class="form-control" @if($quiz->finished_at) 
+                    value="{{ date('Y-m-d\TH:i', strtotime($quiz->finished_at)) }}" @endif>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success btn-sm btn-block">Quiz Oluştur</button>
+                    <button type="submit" class="btn btn-success btn-sm btn-block">Quiz Güncelle</button>
                 </div>
             </form>
         </div>

@@ -23,7 +23,7 @@ class QuizFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(rand(3,7)),
-            'desciption' =>$this->faker->text(200),
+            'description' =>$this->faker->text(200),
         ];
     }
 }
