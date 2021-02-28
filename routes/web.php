@@ -29,5 +29,7 @@ Route::group([
     /*Route::get('deneme', function () {
         return 'prefix testi';
     });*/
+    Route::get('quizzes/{id}',[QuizController::class,'destroy'])->whereNumber('id')->name('quizzes.destroy');//destroy methodunun üstüne yazdığımız ve program yukarıdan aşağı çalıştığı için bunu diğer satırın üstüne yazmamız önemli.Yoksa alttaki satırdaki destroyu çalıştırır önce
     Route::resource('quizzes',QuizController::class);
+    
 });
