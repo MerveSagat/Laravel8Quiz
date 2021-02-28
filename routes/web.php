@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\QuizController;
+use App\Http\Controllers\Admin\QuestionController;
+use App\Models\Question;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,5 +33,8 @@ Route::group([
     });*/
     Route::get('quizzes/{id}',[QuizController::class,'destroy'])->whereNumber('id')->name('quizzes.destroy');//destroy methodunun üstüne yazdığımız ve program yukarıdan aşağı çalıştığı için bunu diğer satırın üstüne yazmamız önemli.Yoksa alttaki satırdaki destroyu çalıştırır önce
     Route::resource('quizzes',QuizController::class);
+    Route::resource('quiz/{quiz_id}/questions',QuestionController::class);//burada baştaki string tarayıcıda url de yazdığımız uzantıyı temsil ediyor
+    //üst satırdaki quiz_id yazan yere, herhangi bir şey yazılabilir. anlamlı olması için böyle yazdık. herhangi bir yerden referans almıyor.
+    //üst satırdaki uzantı çok uzun olmasına rağmen, list.blade de soru butonuna bunu tanımlarken sadece questions.index şeklinde yazmamız da yeterli oluyor. Son slash tan sonrası yeterli.
     
 });
