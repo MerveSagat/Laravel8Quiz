@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-slot name="header">{{ $quiz->title }} için yeni soru oluştur</x-slot>
+    <x-slot name="header">For {{ $quiz->title }} create new question</x-slot>
     <div class="card">
         <div class="card-body">
             <form method="POST" action=" {{ route('questions.store',$quiz->id) }}" enctype="multipart/form-data"> <!--resim dosyası yüklendiği için bu enctype ı kullanmamız gerekiyor yoksa hata alırız -->
@@ -41,7 +41,7 @@
     </div>
                 </div>
                 <div class="form-group">
-                    <label>Doğru Cevap</label>
+                    <label>Correct Answer</label>
                     <select name="correct_answer" id="" class="form-control">
                         <option @if(old('correct_answer')==='answer1') selected @endif value="answer1">Answer 1</option>
                         <option @if(old('correct_answer')==='answer2') selected @endif value="answer2">Answer 2</option>
@@ -50,7 +50,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success btn-sm btn-block">Soru Oluştur</button>
+                    <button type="submit" class="btn btn-success btn-sm btn-block">Create Question</button>
                 </div>
             </form>
         </div>

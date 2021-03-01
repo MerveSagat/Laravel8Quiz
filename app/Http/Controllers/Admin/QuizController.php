@@ -17,7 +17,19 @@ class QuizController extends Controller
      */
     public function index()
     {
-        $quizzes = Quiz::paginate(5); // bunu 5 yaparak tek sayfada 5 kayıt gösterilmesini sağladık. tamamını görmek için list.blaade de link vermemiz gerekiyor.
+        //searchün butonsuz çalışması için aşağıdaki şekilde başlıktan yakalamalar yaparak sorgu yazıoruz
+        $quizzes = Quiz::withCount('questions');
+        if(request()->get('title')) { //burada get methoduyla başlığa gelen title ı yakalıyoruz
+            $quizzes = $quizzes->where('title','LIKE','%'.request()->get("title").'%');//kullanıcının aradığı başlık sistemde var mı bunu sorguluyoruz
+        }
+
+        if(request()->get('status')) {
+            $quizzes = $quizzes->where('status',request()->get('status'));
+        }
+
+        //yukarıdaki iki filtreyi geçtikten sonra istenen verileri aşağıdaki şekilde lisyteliyoruz
+
+        $quizzes = $quizzes->paginate(5); // bunu 5 yaparak tek sayfada 5 kayıt gösterilmesini sağladık. tamamını görmek için list.blaade de link vermemiz gerekiyor.
         return view('admin.quiz.list',compact('quizzes'));
     }
 
@@ -63,7 +75,7 @@ class QuizController extends Controller
      */
     public function edit($id)
     {
-        $quiz = Quiz::find($id) ?? abort(404,'Quiz bulunamadı');
+        $quiz = Quiz::withCount('questions')->find($id) ?? abort(404,'Quiz bulunamadı');
         return view('admin.quiz.edit',compact(('quiz')));
     }
 
