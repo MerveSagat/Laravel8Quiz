@@ -27,7 +27,7 @@ Route::get('/', function () {
 
 Route::group(['middleware' => 'auth'], function () { // burada sadece adminlerin değil, diğer üyelerinde giriş yapıp yapmadığını kontrol ediyoruz
     Route::get('panel', [MainController::class, 'dashboard'])->name('dashboard');
-    Route::get('quiz/detay/{slug}', [MainController::class, 'quiz_detail'])->name('quiz.detail');
+    Route::get('quiz/detay/{slug}', [MainController::class, 'quizDetail'])->name('quiz.detail');//quizDetail bu main controllerdaki fonksiyonun adı
     Route::get('quiz/{slug}', [MainController::class, 'quiz'])->name('quiz.join');
     Route::post('quiz/{slug}/result', [MainController::class, 'result'])->name('quiz.result');
 });

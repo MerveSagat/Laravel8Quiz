@@ -29,7 +29,7 @@ class MainController extends Controller
         return view('quiz', compact('quiz'));
     }
 
-    public function quiz_detail($slug)
+    public function quizDetail($slug)
     {
         $quiz = Quiz::whereslug($slug)->with('myResult', 'topTen.user')->withCount('questions')->first() ?? abort(404, 'Quiz Bulunamadı');
         return view('quiz_detail', compact('quiz')); //burada soru sayısını alabilmek için üst satırda withCount fonk kullandık. Bunu ekrana yazdırmak için quiz_detail.blade.php de quiz->question_count olarak çağırdık.
