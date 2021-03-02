@@ -24,7 +24,7 @@
                     @if (request()->get('title') || request()->get('status'))
                         <!-- eğer filtre varsa sıfırla butonunu göstermesi için kullanıyoruz -->
                         <div class="col-md-2">
-                            <a href="{{ route('quizzes.index') }}" class="btn btn-secondary">Sıfırla</a>
+                            <a href="{{ route('quizzes.index') }}" class="btn btn-secondary">Reset</a>
                         </div>
                     @endif
                 </div>
@@ -47,7 +47,13 @@
                             <td>
                                 @switch($quiz->status)
                                     @case('publish')
+                                    @if(!$quiz->finished_at)
                                     <span class="badge badge-success">Active</span>
+                                    @elseif($quiz->finished_at>now())
+                                    <span class="badge badge-success">Active</span>
+                                    @else
+                                    <span class="badge bg-secondary text-white">Expired</span>
+                                    @endif
                                     @break
                                     @case('passive')
                                     <span class="badge badge-danger">Passive</span>
@@ -65,14 +71,17 @@
                                 </span>
                             </td>
                             <td>
-                                <a href="{{ route('questions.index', $quiz->id) }}" class="btn btn-sm btn-warning"><i
-                                        class="fa fa-question"></i></a>
+                                <a href="{{ route('quizzes.details', $quiz->id) }}" class="btn btn-sm btn-secondary">
+                                    <i class="fa fa-info-circle"></i>
+                                </a>
+                                <a href="{{ route('questions.index', $quiz->id) }}" class="btn btn-sm btn-warning">
+                                    <i class="fa fa-question"></i></a>
 
-                                <a href="{{ route('quizzes.edit', $quiz->id) }}" class="btn btn-sm btn-primary"><i
-                                        class="fa fa-pen"></i></a>
+                                <a href="{{ route('quizzes.edit', $quiz->id) }}" class="btn btn-sm btn-primary">
+                                    <i class="fa fa-pen"></i></a>
 
-                                <a href="{{ route('quizzes.destroy', $quiz->id) }}" class="btn btn-sm btn-danger"><i
-                                        class="fa fa-times"></i></a>
+                                <a href="{{ route('quizzes.destroy', $quiz->id) }}" class="btn btn-sm btn-danger">
+                                    <i class="fa fa-times"></i></a>
                             </td>
                         </tr>
                     @endforeach
