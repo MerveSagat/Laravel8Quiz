@@ -15,9 +15,9 @@ class Answers extends Migration
     {
         Schema::create('answers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');//relational db olduğu için unsigned olması gerekiyor
+            $table->unsignedBigInteger('user_id'); //relational db olduğu için unsigned olması gerekiyor
             $table->unsignedBigInteger('question_id');
-            $table->enum('answer',['answer1','answer2','answer3','answer4']);
+            $table->enum('answer', ['answer1', 'answer2', 'answer3', 'answer4']);
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');

@@ -22,11 +22,11 @@ class ResultFactory extends Factory
     public function definition()
     {
         return [
-            'user_id'=>rand(1,10),
-            'quiz_id'=>rand(1,10),
-            'point'=>rand(0,100),
-            'correct'=>rand(1,20),
-            'wrong'=>rand(1,20),
+            'user_id' => rand(1, 10),
+            'quiz_id' => rand(1, 10),
+            'point' => rand(0, 100),
+            'correct' => rand(1, 20),
+            'wrong' => rand(1, 20),
         ];
     }
 }

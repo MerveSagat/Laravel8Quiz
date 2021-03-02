@@ -26,7 +26,7 @@ class QuizUpdateRequest extends FormRequest
         return [
             'title' => 'required|min:3|max:200',
             'description' => 'max:1000',
-            'finished_at' => 'nullable|after:'.now()//tarih boş bırakılabilir olması için nullable kullanıyoruz.
+            'finished_at' => 'nullable|after:' . now() //tarih boş bırakılabilir olması için nullable kullanıyoruz.
         ];
     }
 

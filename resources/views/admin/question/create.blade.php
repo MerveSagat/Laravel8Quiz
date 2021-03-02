@@ -2,12 +2,13 @@
     <x-slot name="header">For {{ $quiz->title }} create new question</x-slot>
     <div class="card">
         <div class="card-body">
-            <form method="POST" action=" {{ route('questions.store',$quiz->id) }}" enctype="multipart/form-data"> <!--resim dosyası yüklendiği için bu enctype ı kullanmamız gerekiyor yoksa hata alırız -->
+            <form method="POST" action=" {{ route('questions.store', $quiz->id) }}" enctype="multipart/form-data">
+                <!--resim dosyası yüklendiği için bu enctype ı kullanmamız gerekiyor yoksa hata alırız -->
                 @csrf
                 <!--form uygulamalarında bunu yazmak mecburi. güvenlik için -->
                 <div class="form-group">
                     <label>Question</label>
-                    <textarea name="question" class="form-control" rows="4">{{ old('question')}}</textarea>
+                    <textarea name="question" class="form-control" rows="4">{{ old('question') }}</textarea>
                 </div>
                 <div class="form-group">
                     <label>Photo</label>
@@ -18,35 +19,35 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Answer 1</label>
-                            <textarea name="answer1" class="form-control" rows="2">{{ old('answer1')}}</textarea>
+                            <textarea name="answer1" class="form-control" rows="2">{{ old('answer1') }}</textarea>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Answer 2</label>
-                        <textarea name="answer2" class="form-control" rows="2">{{ old('answer2')}}</textarea>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Answer 3</label>
-                    <textarea name="answer3" class="form-control" rows="2">{{ old('answer3')}}</textarea>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>Answer 4</label>
-                <textarea name="answer4" class="form-control" rows="2">{{ old('answer4')}}</textarea>
-        </div>
-    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Answer 2</label>
+                            <textarea name="answer2" class="form-control" rows="2">{{ old('answer2') }}</textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Answer 3</label>
+                            <textarea name="answer3" class="form-control" rows="2">{{ old('answer3') }}</textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Answer 4</label>
+                            <textarea name="answer4" class="form-control" rows="2">{{ old('answer4') }}</textarea>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Correct Answer</label>
                     <select name="correct_answer" id="" class="form-control">
-                        <option @if(old('correct_answer')==='answer1') selected @endif value="answer1">Answer 1</option>
-                        <option @if(old('correct_answer')==='answer2') selected @endif value="answer2">Answer 2</option>
-                        <option @if(old('correct_answer')==='answer3') selected @endif value="answer3">Answer 3</option>
-                        <option @if(old('correct_answer')==='answer4') selected @endif value="answer4">Answer 4</option>
+                        <option @if (old('correct_answer') === 'answer1') selected @endif value="answer1">Answer 1</option>
+                        <option @if (old('correct_answer') === 'answer2') selected @endif value="answer2">Answer 2</option>
+                        <option @if (old('correct_answer') === 'answer3') selected @endif value="answer3">Answer 3</option>
+                        <option @if (old('correct_answer') === 'answer4') selected @endif value="answer4">Answer 4</option>
                     </select>
                 </div>
                 <div class="form-group">

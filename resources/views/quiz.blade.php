@@ -2,7 +2,7 @@
     <x-slot name="header"> {{ $quiz->title }} </x-slot>
     <div class="card">
         <div class="card-body">
-            <form method="POST" action='{{ route('quiz.result',$quiz->slug) }}'>
+            <form method="POST" action='{{ route('quiz.result', $quiz->slug) }}'>
                 @csrf
                 @foreach ($quiz->questions as $question)
 
@@ -41,8 +41,8 @@
                     </div>
                     <hr>
                 @endforeach
-            <button type="submit" class="btn btn-success btn-sm btn-block"> Send Quiz </button>
-        </form>
+                <button type="submit" class="btn btn-success btn-sm btn-block"> Send Quiz </button>
+            </form>
         </div>
     </div>
 </x-app-layout>

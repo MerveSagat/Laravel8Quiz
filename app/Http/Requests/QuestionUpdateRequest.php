@@ -16,7 +16,7 @@ class QuestionUpdateRequest extends FormRequest
         return true;
     }
 
-      /**
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -24,26 +24,26 @@ class QuestionUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'question'=>'required|min:3',
-            'image'=>'image|nullable|max:1024|mimes:jpg,jpeg,png',
-            'answer1'=>'required|min:1',
-            'answer2'=>'required|min:1',
-            'answer3'=>'required|min:1',
-            'answer4'=>'required|min:1',
-            'correct_answer'=>'required',
+            'question' => 'required|min:3',
+            'image' => 'image|nullable|max:1024|mimes:jpg,jpeg,png',
+            'answer1' => 'required|min:1',
+            'answer2' => 'required|min:1',
+            'answer3' => 'required|min:1',
+            'answer4' => 'required|min:1',
+            'correct_answer' => 'required',
         ];
     }
 
     public function attributes()
     {
         return [
-            'question'=>'Question',
-            'image'=> 'Picture of Question',
-            'answer1'=>'Answer 1',
-            'answer2'=>'Answer 2',
-            'answer3'=>'Answer 3',
-            'answer4'=>'Answer 4',
-            'correct_answer'=>'Correct Answer',
+            'question' => 'Question',
+            'image' => 'Picture of Question',
+            'answer1' => 'Answer 1',
+            'answer2' => 'Answer 2',
+            'answer3' => 'Answer 3',
+            'answer4' => 'Answer 4',
+            'correct_answer' => 'Correct Answer',
         ];
     }
 }

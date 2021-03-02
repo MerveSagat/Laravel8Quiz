@@ -19,8 +19,8 @@ class QuestionController extends Controller
      */
     public function index($id)
     {
-        $quiz = Quiz::whereId($id)->with('questions')->first() ?? abort(404,'Quiz Bulunamadı');//bu çağırma yönteminde tek satırda hem quiz bilgisini hem de o quize ait sorulara ulaşabiliyoruz.
-        return view('admin.question.list',compact('quiz'));
+        $quiz = Quiz::whereId($id)->with('questions')->first() ?? abort(404, 'Quiz Bulunamadı'); //bu çağırma yönteminde tek satırda hem quiz bilgisini hem de o quize ait sorulara ulaşabiliyoruz.
+        return view('admin.question.list', compact('quiz'));
     }
 
     /**
@@ -31,7 +31,7 @@ class QuestionController extends Controller
     public function create($id) //normalde burası parametresiz geliyor. Biz  parametre ekleyerek url de gelen sorunun id sini yakalayabiliyoruz
     {
         $quiz = Quiz::find($id);
-        return view('admin.question.create',compact('quiz'));
+        return view('admin.question.create', compact('quiz'));
     }
 
     /**
@@ -40,19 +40,19 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(QuestionCreateRequest $request,$id)
+    public function store(QuestionCreateRequest $request, $id)
     {
-        if($request->hasFile('image')){
-            $fileName = Str::slug($request->question).'.'.$request->image->extension();
-            $fileNameWithUpload = 'uploads/'.$fileName;
-            $request->image->move(public_path('uploads'),$fileName);//bu satır projenin içine kaydedilmesini sağlar. sonrasında bir de db deki sütuna kaydetmek lazım.
+        if ($request->hasFile('image')) {
+            $fileName = Str::slug($request->question) . '.' . $request->image->extension();
+            $fileNameWithUpload = 'uploads/' . $fileName;
+            $request->image->move(public_path('uploads'), $fileName); //bu satır projenin içine kaydedilmesini sağlar. sonrasında bir de db deki sütuna kaydetmek lazım.
             $request->merge([
-                'image' =>$fileNameWithUpload
-                ]);//bu da db ye kaydediyor.
+                'image' => $fileNameWithUpload
+            ]); //bu da db ye kaydediyor.
         }
         Quiz::find($id)->questions()->create($request->post());
 
-        return redirect()->route('questions.index',$id)->withSuccess('Soru başarıyla oluşturuldu');
+        return redirect()->route('questions.index', $id)->withSuccess('Soru başarıyla oluşturuldu');
     }
 
     /**
@@ -61,9 +61,9 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($quiz_id,$id)//parametreyi bu şekilde 2 tane yazarsak, önce quizin idsini, sonra sorunun id sini yakalayabiliriz.
+    public function show($quizId, $id) //parametreyi bu şekilde 2 tane yazarsak, önce quizin idsini, sonra sorunun id sini yakalayabiliriz.
     {
-        return $quiz_id.'-'.$id;
+        return $quizId . '-' . $id;
     }
 
     /**
@@ -72,10 +72,10 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($quiz_id,$question_id)
+    public function edit($quizId, $questionId)
     {
-        $question = Quiz::find($quiz_id)->questions()->whereId($question_id)->first() ?? abort(404,'Quiz veya Soru Bulunamadı');
-        return view('admin.question.edit',compact('question'));
+        $question = Quiz::find($quizId)->questions()->whereId($questionId)->first() ?? abort(404, 'Quiz or Question Not Found');
+        return view('admin.question.edit', compact('question'));
     }
 
     /**
@@ -85,19 +85,19 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(QuestionUpdateRequest $request, $quiz_id, $question_id)
+    public function update(QuestionUpdateRequest $request, $quizId, $questionId)
     {
-        if($request->hasFile('image')){
-            $fileName = Str::slug($request->question).'.'.$request->image->extension();
-            $fileNameWithUpload = 'uploads/'.$fileName;
-            $request->image->move(public_path('uploads'),$fileName);//bu satır projenin içine kaydedilmesini sağlar. sonrasında bir de db deki sütuna kaydetmek lazım.
+        if ($request->hasFile('image')) {
+            $fileName = Str::slug($request->question) . '.' . $request->image->extension();
+            $fileNameWithUpload = 'uploads/' . $fileName;
+            $request->image->move(public_path('uploads'), $fileName); //bu satır projenin içine kaydedilmesini sağlar. sonrasında bir de db deki sütuna kaydetmek lazım.
             $request->merge([
-                'image' =>$fileNameWithUpload
-                ]);//bu da db ye kaydediyor.
+                'image' => $fileNameWithUpload
+            ]); //bu da db ye kaydediyor.
         }
-        Quiz::find($quiz_id)->questions()->whereId($question_id)->first()->update($request->post());
+        Quiz::find($quizId)->questions()->whereId($questionId)->first()->update($request->post());
 
-        return redirect()->route('questions.index',$quiz_id)->withSuccess('Soru başarıyla güncellendi');
+        return redirect()->route('questions.index', $quizId)->withSuccess('Question has been updated successfully');
     }
 
     /**
@@ -106,10 +106,9 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($quiz_id,$question_id)
+    public function destroy($quizId, $questionId)
     {
-        Quiz::find($quiz_id)->questions()->whereId($question_id)->delete();
-        return redirect()->route('questions.index',$quiz_id)->withSuccess('Soru başarıyla silindi');
-    
+        Quiz::find($quizId)->questions()->whereId($questionId)->delete();
+        return redirect()->route('questions.index', $quizId)->withSuccess('Question has been deleted successfully');
     }
 }

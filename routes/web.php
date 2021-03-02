@@ -25,11 +25,11 @@ Route::get('/', function () {
 //     return view('dashboard');
 // })->name('dashboard');  burayı videoda sildi yerine aşağıdaki grubu oluşturdu
 
-Route::group(['middleware' => 'auth'], function(){ // burada sadece adminlerin değil, diğer üyelerinde giriş yapıp yapmadığını kontrol ediyoruz
-    Route::get('panel',[MainController::class,'dashboard'])->name('dashboard');
-    Route::get('quiz/detay/{slug}',[MainController::class,'quiz_detail'])->name('quiz.detail');
-    Route::get('quiz/{slug}',[MainController::class,'quiz'])->name('quiz.join');
-    Route::post('quiz/{slug}/result',[MainController::class,'result'])->name('quiz.result');
+Route::group(['middleware' => 'auth'], function () { // burada sadece adminlerin değil, diğer üyelerinde giriş yapıp yapmadığını kontrol ediyoruz
+    Route::get('panel', [MainController::class, 'dashboard'])->name('dashboard');
+    Route::get('quiz/detay/{slug}', [MainController::class, 'quiz_detail'])->name('quiz.detail');
+    Route::get('quiz/{slug}', [MainController::class, 'quiz'])->name('quiz.join');
+    Route::post('quiz/{slug}/result', [MainController::class, 'result'])->name('quiz.result');
 });
 
 Route::group([
@@ -39,12 +39,12 @@ Route::group([
     /*Route::get('deneme', function () {
         return 'prefix testi';
     });*/
-    Route::get('quizzes/{id}',[QuizController::class,'destroy'])->whereNumber('id')->name('quizzes.destroy');//destroy methodunun üstüne yazdığımız ve program yukarıdan aşağı çalıştığı için bunu diğer satırın üstüne yazmamız önemli.Yoksa alttaki satırdaki destroyu çalıştırır önce
-    Route::get('quizzes/{id}/details',[QuizController::class,'show'])->whereNumber('id')->name('quizzes.details');//destroy methodunun üstüne yazdığımız ve program yukarıdan aşağı çalıştığı için bunu diğer satırın üstüne yazmamız önemli.Yoksa alttaki satırdaki destroyu çalıştırır önce
-    Route::get('quiz/{quiz_id}/questions/{id}',[QuestionController::class,'destroy'])->whereNumber('id')->name('questions.destroy');//Gidecek olan verilen mutlaka sayı olmak zorundadır.
-    Route::resource('quizzes',QuizController::class);
-    Route::resource('quiz/{quiz_id}/questions',QuestionController::class);//burada baştaki string tarayıcıda url de yazdığımız uzantıyı temsil ediyor
+    Route::get('quizzes/{id}', [QuizController::class, 'destroy'])->whereNumber('id')->name('quizzes.destroy'); //destroy methodunun üstüne yazdığımız ve program yukarıdan aşağı çalıştığı için bunu diğer satırın üstüne yazmamız önemli.Yoksa alttaki satırdaki destroyu çalıştırır önce
+    Route::get('quizzes/{id}/details', [QuizController::class, 'show'])->whereNumber('id')->name('quizzes.details'); //destroy methodunun üstüne yazdığımız ve program yukarıdan aşağı çalıştığı için bunu diğer satırın üstüne yazmamız önemli.Yoksa alttaki satırdaki destroyu çalıştırır önce
+    Route::get('quiz/{quiz_id}/questions/{id}', [QuestionController::class, 'destroy'])->whereNumber('id')->name('questions.destroy'); //Gidecek olan verilen mutlaka sayı olmak zorundadır.
+    Route::resource('quizzes', QuizController::class);
+    Route::resource('quiz/{quiz_id}/questions', QuestionController::class); //burada baştaki string tarayıcıda url de yazdığımız uzantıyı temsil ediyor
     //üst satırdaki quiz_id yazan yere, herhangi bir şey yazılabilir. anlamlı olması için böyle yazdık. herhangi bir yerden referans almıyor.
     //üst satırdaki uzantı çok uzun olmasına rağmen, list.blade de soru butonuna bunu tanımlarken sadece questions.index şeklinde yazmamız da yeterli oluyor. Son slash tan sonrası yeterli.
-    
+
 });

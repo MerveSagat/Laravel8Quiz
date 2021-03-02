@@ -47,12 +47,12 @@
                             <td>
                                 @switch($quiz->status)
                                     @case('publish')
-                                    @if(!$quiz->finished_at)
-                                    <span class="badge badge-success">Active</span>
+                                    @if (!$quiz->finished_at)
+                                        <span class="badge badge-success">Active</span>
                                     @elseif($quiz->finished_at>now())
-                                    <span class="badge badge-success">Active</span>
+                                        <span class="badge badge-success">Active</span>
                                     @else
-                                    <span class="badge bg-secondary text-white">Expired</span>
+                                        <span class="badge bg-secondary text-white">Expired</span>
                                     @endif
                                     @break
                                     @case('passive')

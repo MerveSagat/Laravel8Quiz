@@ -15,7 +15,7 @@ class Result extends Migration
     {
         Schema::create('results', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');//relational db olduğu için unsigned olması gerekiyor
+            $table->unsignedBigInteger('user_id'); //relational db olduğu için unsigned olması gerekiyor
             $table->unsignedBigInteger('quiz_id');
             $table->integer('point');
             $table->integer('correct');

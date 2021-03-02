@@ -18,7 +18,7 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
-    public function results() 
+    public function results()
     {
         return $this->hasMany('App\Models\Result');
     }

@@ -3,10 +3,10 @@
     <div class="card">
         <div class="card-body">
             <p class="card-text">
-                <h5 class="card-title">
-                    <a href="{{route('quizzes.index')}}" class="btn btn-sm btn-secondary">
-                        <i class="fa fa-arrow-left"></i> Back to Quizzes </a>
-                </h5>
+            <h5 class="card-title">
+                <a href="{{ route('quizzes.index') }}" class="btn btn-sm btn-secondary">
+                    <i class="fa fa-arrow-left"></i> Back to Quizzes </a>
+            </h5>
             <div class="row">
                 <div class="col-md-4">
                     <ul class="list-group">
@@ -33,22 +33,23 @@
                             </li>
                         @endif
                     </ul>
-                    @if(count($quiz->topTen)>0)
-                    <div class="card mt-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Top Ten</h5>
-                            <ul class="list-group">
-                                @foreach ($quiz->topTen as $result)
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <strong class="h7"> {{ $loop->iteration }}.</strong>
-                                        <img class="w-8 h-8 rounded-full" src="{{ $result->user->profile_photo_url }}">
-                                        <span @if(auth()->user()->id==$result->user_id)class="text-danger" @endif>{{ $result->user->name }}</span>
-                                        <span class="badge badge-success badge-pill">{{ $result->point }}</span>
-                                    </li>
-                                @endforeach
-                            </ul>
+                    @if (count($quiz->topTen) > 0)
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Top Ten</h5>
+                                <ul class="list-group">
+                                    @foreach ($quiz->topTen as $result)
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <strong class="h7"> {{ $loop->iteration }}.</strong>
+                                            <img class="w-8 h-8 rounded-full"
+                                                src="{{ $result->user->profile_photo_url }}">
+                                            <span @if (auth()->user()->id == $result->user_id) class="text-danger" @endif>{{ $result->user->name }}</span>
+                                            <span class="badge badge-success badge-pill">{{ $result->point }}</span>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
-                    </div>
                     @endif
                 </div>
 
@@ -57,24 +58,24 @@
 
                     <table class="table table-bordered mt-3">
                         <thead>
-                          <tr>
-                            <th scope="col">Full Name</th>
-                            <th scope="col">Point</th>
-                            <th scope="col">Correct</th>
-                            <th scope="col">Wrong</th>
-                          </tr>
+                            <tr>
+                                <th scope="col">Full Name</th>
+                                <th scope="col">Point</th>
+                                <th scope="col">Correct</th>
+                                <th scope="col">Wrong</th>
+                            </tr>
                         </thead>
                         <tbody>
-                            @foreach($quiz->results as $result)
-                          <tr>
-                            <td>{{ $result->user->name }}</td>
-                            <td>{{ $result->point }}</td>
-                            <td>{{ $result->correct }}</td>
-                            <td>{{ $result->wrong }}</td>
-                          </tr>
-                          @endforeach
+                            @foreach ($quiz->results as $result)
+                                <tr>
+                                    <td>{{ $result->user->name }}</td>
+                                    <td>{{ $result->point }}</td>
+                                    <td>{{ $result->correct }}</td>
+                                    <td>{{ $result->wrong }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
-                      </table>
+                    </table>
                     </p>
                 </div>
             </div>

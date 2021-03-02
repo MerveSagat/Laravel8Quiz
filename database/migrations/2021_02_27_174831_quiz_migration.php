@@ -19,11 +19,11 @@ class QuizMigration extends Migration
             $table->longText('description')->nullable();
             $table->string('slug');
             $table->timestamp('finished_at')->nullable();
-            $table->enum('status',['publish','draft','passive'])->default('draft');
+            $table->enum('status', ['publish', 'draft', 'passive'])->default('draft');
             $table->timestamps();
         });
     }
- 
+
     /**
      * Reverse the migrations.
      *
