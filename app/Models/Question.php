@@ -21,7 +21,10 @@ class Question extends Model
 
     protected $appends = ['true_percent']; //2.kelime büyük harfle başladığı için araya alt tire gerekiyor
 
-    public function getTruePercentAttribute()
+    /**
+     * 
+     */
+    public function getTruePercentAttribute()//quizi görüntüle dediğimizde sorunun altında gelen ortalama doğru cevaplanma oranı için hazırlanan fonksiyon
     {
         $answerCount = $this->answers()->count(); //burada cevapların kendisine ihtiyacımız olsa get() diyecektik ama sayısına ihtiyacımız olduğu için count diyoruz.
         $trueAnswer = $this->answers()->where('answer', $this->correct_answer)->count();

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\SearchController;
 use App\Models\Question;
 
 /*
@@ -46,5 +47,5 @@ Route::group([
     Route::resource('quiz/{quiz_id}/questions', QuestionController::class); //burada baştaki string tarayıcıda url de yazdığımız uzantıyı temsil ediyor
     //üst satırdaki quiz_id yazan yere, herhangi bir şey yazılabilir. anlamlı olması için böyle yazdık. herhangi bir yerden referans almıyor.
     //üst satırdaki uzantı çok uzun olmasına rağmen, list.blade de soru butonuna bunu tanımlarken sadece questions.index şeklinde yazmamız da yeterli oluyor. Son slash tan sonrası yeterli.
-
+    Route::resource('quiz/search', SearchController::class);
 });

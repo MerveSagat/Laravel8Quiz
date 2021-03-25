@@ -12,6 +12,8 @@ class Quiz extends Model
     use HasFactory;
     use Sluggable;
 
+    // what's this?
+
     protected $fillable = [
         'title',
         'description',
@@ -38,7 +40,8 @@ class Quiz extends Model
         //işlemi yapmak için önce en yüksek puandan aşağı doğru sıralıyoruz.
         //sonra kendi derecemizi getiriyoruz.
         $rank = 0;
-        foreach ($this->results()->orderByDesc('point')->get() as $result) {
+        $points = $this->results()->orderByDesc('point')->get();
+        foreach ($points as $result) {
             $rank += 1;
             if (auth()->user()->id == $result->user_id) { //benim user_id ile resulttaki id esşitse derecemi göster
                 return $rank;

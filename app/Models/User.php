@@ -23,7 +23,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Result');
     }
 
-    /**
+    /** 
      * The attributes that are mass assignable.
      *
      * @var array

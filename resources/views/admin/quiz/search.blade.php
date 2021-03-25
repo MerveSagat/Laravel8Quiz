@@ -6,9 +6,6 @@
                 <a href="{{ route('quizzes.create') }}" class="btn btn-sm btn-primary">
                     <i class="fa fa-plus"></i> Create Quiz</a>
             </h5>
-            <h5 class="card-title float-right">
-                <a href="{{ route('search.index') }}" class="btn btn-sm btn-secondary"> Search </a>
-            </h5>
             <form method="GET" action="">
                 <div class="form-row">
                     <div class="col-md-2">
